@@ -12,7 +12,7 @@ const typeDefs = gql`
         seller: Seller
     }
     
-    input ProductDTO {
+    input ProductIn {
         name: String!
         description: String
         price: Float!
@@ -28,6 +28,7 @@ const typeDefs = gql`
     enum Type{
         CANDY
         MEAT
+        SODA
     }
 """------------------------------------------------------------------------------------------------------------------"""
     type Seller {
@@ -39,7 +40,7 @@ const typeDefs = gql`
         products: [Product]
     }
     
-    input SellerDTO {
+    input SellerIn {
         name: String
         address: String
         phone: String
@@ -55,8 +56,8 @@ const typeDefs = gql`
     }
      
     type Mutation {
-        addProduct(productIn: ProductDTO): Product!
-        addSeller(sellerIn: SellerDTO): Seller!
+        addProduct(productIn: ProductIn): Product!
+        addSeller(sellerIn: SellerIn): Seller!
     }
 `;
 

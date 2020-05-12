@@ -1,8 +1,10 @@
 const {ApolloServer} = require('apollo-server');
 const typeDefs = require('./schema');
-const resolvers = require('../database/mongo/resolvers');
-const {product, seller} = require('../database/postgres/models');
 const mongoose = require('mongoose');
+
+const resolvers = require('../database/mongo/resolvers');
+const product = require('../database/mongo/models/product');
+const seller = require('../database/mongo/models/seller');
 
 mongoose.connect('mongodb://localhost:27017/testing', {
     useNewUrlParser: true,

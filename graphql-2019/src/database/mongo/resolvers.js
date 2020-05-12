@@ -1,9 +1,7 @@
-const product = require('./models/product');
-const seller = require('./models/seller');
-
 const resolvers = {
     Query: {
-        products: (_, {filter}, ___) => {
+        //Product////////////////////////////////////////////////////////////////////////////////////////////////////////
+        products: (_, {filter}, {product}) => {
             let options = {};
 
             if (filter) {
@@ -14,18 +12,20 @@ const resolvers = {
 
             return product.find(options);
         },
-        productById: (_, {id}, ___) => {
+        productById: (_, {id}, {product}) => {
             return product.findOne({productId: id});
         },
-        sellers: (_, __, ___) => {
+        //Seller////////////////////////////////////////////////////////////////////////////////////////////////////////
+        sellers: (_, __, {seller}) => {
             return seller.find();
         },
-        sellerById: (_, {id}, ___) => {
+        sellerById: (_, {id}, {seller}) => {
             return seller.findOne({sellerId: id});
         }
     },
     Mutation: {
-        addProduct: (_, {productIn}, ___) => {
+        //Product////////////////////////////////////////////////////////////////////////////////////////////////////////
+        addProduct: (_, {productIn}, {product}) => {
             const productModel = new product({
                 name: productIn.name,
                 description: productIn.description,
@@ -37,7 +37,8 @@ const resolvers = {
 
             return productModel.save();
         },
-        addSeller: (_, {sellerIn}, ___) => {
+        //Seller////////////////////////////////////////////////////////////////////////////////////////////////////////
+        addSeller: (_, {sellerIn}, {seller}) => {
             const sellerModel = new seller({
                 name: sellerIn.name,
                 address: sellerIn.address,
@@ -49,20 +50,20 @@ const resolvers = {
         }
     },
     Product: {
-        seller: (productOut, __, ___) => {
-            return seller.findOne({sellerId: productOut.seller});
-        },
         id: (productOut, __, ___) => {
             return productOut.productId;
         },
+        seller: (productOut, __, {seller}) => {
+            return seller.findOne({sellerId: productOut.seller});
+        },
     },
     Seller: {
-        products: (sellerOut, __, ___) => {
-            return product.find({seller: sellerOut.sellerId});
-        },
         id: (sellerOut, __, ___) => {
             return sellerOut.sellerId;
-        }
+        },
+        products: (sellerOut, __, {product}) => {
+            return product.find({seller: sellerOut.sellerId});
+        },
     }
 };
 
