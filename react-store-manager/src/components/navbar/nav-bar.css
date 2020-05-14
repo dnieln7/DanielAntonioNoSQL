@@ -1,0 +1,28 @@
+.navbar-brand:hover {
+    color: var(--info) !important;
+}
+
+.dropdown-toggle:hover {
+    color: var(--info) !important;
+}
+
+.dropdown-toggle[aria-expanded=true] {
+    color: var(--info) !important;
+}
+
+.dropdown-menu {
+    background: var(--dark);
+}
+
+.dropdown-menu .dropdown-item {
+    color: var(--white);
+}
+
+.dropdown-divider {
+    border-top: 1px solid var(--info);
+}
+
+.dropdown-menu .dropdown-item:hover {
+    color: var(--info) !important;
+    background: var(--dark);
+}

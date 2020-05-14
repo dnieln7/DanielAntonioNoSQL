@@ -5,6 +5,7 @@ import {useQuery} from "@apollo/react-hooks";
 import Loader from "../Loader";
 import {GET_DISPLAY_SELLERS} from "../../graphql/queries/seller";
 import "./seller-list.css";
+import Error from "../error/Error";
 
 
 export const SellerList = () => {
@@ -26,7 +27,7 @@ export const SellerList = () => {
     }
 
     if (error) {
-        return (<p>{error.message}</p>);
+        return (<Error error={error}/>);
     }
 
     return (
