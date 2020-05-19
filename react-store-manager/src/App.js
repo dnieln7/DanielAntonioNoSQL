@@ -2,8 +2,8 @@ import './App.css';
 
 import React from 'react';
 import NavBar from "./components/navbar/nav-bar";
-import {ProductList} from "./components/products/product-list";
-import {SellerList} from "./components/sellers/seller-list";
+import {ProductList} from "./components/products/product-list/product-list";
+import {SellerList} from "./components/sellers/seller-list/seller-list";
 import Container from "react-bootstrap/Container";
 import AddProduct from "./components/products/add-product/add-product";
 import {Redirect} from "react-router-dom";

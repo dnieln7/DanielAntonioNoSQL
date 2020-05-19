@@ -7,12 +7,23 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {useHistory} from 'react-router-dom';
 import Image from "react-bootstrap/Image";
-import {useQuery} from "@apollo/react-hooks";
-import {GET_MINI_SELLERS} from "../../../graphql/queries/seller";
+import {useMutation, useQuery} from "@apollo/react-hooks";
+import {GET_DISPLAY_SELLERS, GET_MINI_SELLERS} from "../../../graphql/gql/seller";
 import Alert from "react-bootstrap/Alert";
+import {CREATE, GET_DISPLAY_PRODUCTS} from "../../../graphql/gql/product";
 
 export default function AddProduct() {
     const history = useHistory();
+
+    const [createProduct, product] = useMutation(CREATE, {
+        update(cache, {data: {addProduct}}) {
+            const data = cache.readQuery({query: GET_DISPLAY_PRODUCTS});
+            cache.writeQuery({
+                query: GET_DISPLAY_SELLERS,
+                data: {products: [addProduct, ...data.products]}
+            });
+        }
+    });
 
     const [show, setShow] = useState(false);
 
@@ -32,7 +43,18 @@ export default function AddProduct() {
         if (isNaN(price) || isNaN(quantity) || isNaN(seller)) {
             setShow(true);
         } else {
-
+            createProduct({
+                variables: {
+                    productIn: {
+                        name: name,
+                        description: description,
+                        price: price,
+                        quantity: quantity,
+                        type: type,
+                        seller: seller,
+                    }
+                }
+            }).then(_ => history.push("/products"));
         }
     }
 

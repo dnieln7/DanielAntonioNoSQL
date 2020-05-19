@@ -9,8 +9,7 @@ import {useHistory} from 'react-router-dom';
 import Image from "react-bootstrap/Image";
 import Alert from "react-bootstrap/Alert";
 import {useMutation} from "@apollo/react-hooks";
-import {CREATE} from "../../../graphql/mutations/seller";
-import {GET_DISPLAY_SELLERS} from "../../../graphql/queries/seller";
+import {CREATE, GET_DISPLAY_SELLERS} from "../../../graphql/gql/seller";
 
 export default function AddSeller() {
     const history = useHistory();
@@ -45,7 +44,7 @@ export default function AddSeller() {
                         international: international
                     }
                 }
-            }).then(_ => {});
+            }).then(_ => history.push("/sellers"));
         }
     }
 
